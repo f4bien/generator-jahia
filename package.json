@@ -4,9 +4,27 @@
   "description": "Yeoman generator for Jahia",
   "keywords": [
     "yeoman-generator",
-    "jahia"
+    "jahia",
+    "less",
+    "bootstrap"
   ],
+  "homepage": "https://github.com/f4bien/generator-jahia",
+  "bugs": "https://github.com/f4bien/generator-jahia/issues",
+  "author": {
+    "name": "Fabien Rassinier",
+    "email": "fabien.rassinier@gmail.com"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/f4bien/generator-jahia.git"
+  },
   "dependencies": {
-    "yeoman-generator": "^0.17.3"
-  }
+    "yeoman-generator": "^0.17.7"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
 }
