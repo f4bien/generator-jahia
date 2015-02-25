@@ -26,6 +26,10 @@ Generator.prototype.askFor = function askFor(argument) {
   var cb = this.async();
   var formats = ['css', 'sass', 'less', 'stylus'];
   var prompts = [{
+    name: 'name',
+    message: 'Template name',
+    default: path.basename(process.cwd())
+  }, {
     type: 'list',
     name: 'format',
     message: 'In what format would you like the Bootstrap stylesheets?',
@@ -33,6 +37,11 @@ Generator.prototype.askFor = function askFor(argument) {
   }];
 
   this.prompt(prompts, function (props) {
+    this.slugname = this._.slugify(props.name);
+    this.camelizedName = this.slugname.replace(/-+([a-zA-Z0-9])/g, function (g) {
+      return g[1].toUpperCase();
+    });
+
     this.format = props.format;
 
     cb();
@@ -40,7 +49,8 @@ Generator.prototype.askFor = function askFor(argument) {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  this.template('bowerrc', '.bowerrc');
+  this.copy('bowerrc', '.bowerrc');
+  this.template('_bower.json', 'bower.json');
 
   if (this.format === 'less') {
     var lessDir = 'src/main/less/';
@@ -58,7 +68,8 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 
   var resourceDir = 'src/main/resources/';
   this.mkdir(resourceDir);
-  this.template(resourceDir + '/META-INF/_definitions.cnd', resourceDir + '/META-INF/definitions.cnd');
+  this.template(resourceDir + 'META-INF/_definitions.cnd', resourceDir + 'META-INF/definitions.cnd');
+  this.copy(resourceDir + 'jnt_template/html/template.jsp', resourceDir + 'jnt_template/html/template.' + this.slugname + '.jsp');
 
   // map format -> package name
   var packages = {
