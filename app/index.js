@@ -53,6 +53,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy(lessDir + 'components/navMenu.less', lessDir + 'components/navMenu.less');
     this.copy(lessDir + 'components/navMenu.aside.less', lessDir + 'components/navMenu.aside.less');
     this.template(lessDir + '_app.less', lessDir + 'app.less');
+    this.template(lessDir + '_edit.less', lessDir + 'edit.less');
   }
 
   var resourceDir = 'src/main/resources/';
