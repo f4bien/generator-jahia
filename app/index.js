@@ -40,6 +40,25 @@ Generator.prototype.askFor = function askFor(argument) {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
+  this.template('bowerrc', '.bowerrc');
+
+  if (this.format === 'less') {
+    var lessDir = 'src/main/less/';
+    this.mkdir(lessDir);
+    this.copy(lessDir + 'layout/header.less', lessDir + 'layout/header.less');
+    this.copy(lessDir + 'layout/content.less', lessDir + 'layout/content.less');
+    this.copy(lessDir + 'layout/footer.less', lessDir + 'layout/footer.less');
+    this.copy(lessDir + 'templates/page.less', lessDir + 'templates/page.less');
+    this.copy(lessDir + 'templates/home.less', lessDir + 'templates/home.less');
+    this.copy(lessDir + 'components/navMenu.less', lessDir + 'components/navMenu.less');
+    this.copy(lessDir + 'components/navMenu.aside.less', lessDir + 'components/navMenu.aside.less');
+    this.template(lessDir + '_app.less', lessDir + 'app.less');
+  }
+
+  var resourceDir = 'src/main/resources/';
+  this.mkdir(resourceDir);
+  this.template(resourceDir + '/META-INF/_definitions.cnd', resourceDir + '/META-INF/definitions.cnd');
+
   // map format -> package name
   var packages = {
     css: 'bootstrap',
