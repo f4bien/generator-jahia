@@ -83,7 +83,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   this.template(resourceDir + 'META-INF/_definitions.cnd', resourceDir + 'META-INF/definitions.cnd');
   this.copy(resourceDir + 'jnt_template/html/template.jsp', resourceDir + 'jnt_template/html/template.' + this.slugname + '.jsp');
 
-  this.template('_pom.xml', 'pom.xml');
+  this.template('_pom.xml', 'pom.xml', null, { 'interpolate': /<%=([\s\S]+?)%>/g });
 
   // map format -> package name
   var packages = {
