@@ -27,8 +27,17 @@ Generator.prototype.askFor = function askFor(argument) {
   var formats = ['css', 'sass', 'less', 'stylus'];
   var prompts = [{
     name: 'name',
-    message: 'Template name',
+    message: 'What is the Digital Factory template set name?',
     default: path.basename(process.cwd())
+  }, {
+    type: 'input',
+    name: 'packageName',
+    message: 'What is your default Java package name?',
+    validate: function (input) {
+      if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
+      return 'The package name you have provided is not a valid Java package name.';
+    },
+    default: 'com.company.jahia'
   }, {
     type: 'list',
     name: 'format',
@@ -37,6 +46,7 @@ Generator.prototype.askFor = function askFor(argument) {
   }];
 
   this.prompt(prompts, function (props) {
+    this.packageName = props.packageName;
     this.slugname = this._.slugify(props.name);
     this.camelizedName = this.slugname.replace(/-+([a-zA-Z0-9])/g, function (g) {
       return g[1].toUpperCase();
@@ -70,6 +80,8 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   this.mkdir(resourceDir);
   this.template(resourceDir + 'META-INF/_definitions.cnd', resourceDir + 'META-INF/definitions.cnd');
   this.copy(resourceDir + 'jnt_template/html/template.jsp', resourceDir + 'jnt_template/html/template.' + this.slugname + '.jsp');
+
+  this.template('_pom.xml', 'pom.xml');
 
   // map format -> package name
   var packages = {
