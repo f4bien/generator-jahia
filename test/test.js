@@ -4,7 +4,7 @@ var path = require('path');
 var helpers = require('yeoman-generator').test;
 var assert = require('assert');
 
-describe('Bootstrap generator test', function () {
+describe('Jahia generator test', function () {
   beforeEach(function (done) {
     this.bowerInstallCalls = [];
 
@@ -14,7 +14,7 @@ describe('Bootstrap generator test', function () {
         return;
       }
 
-      this.app = helpers.createGenerator('bootstrap:app', [
+      this.app = helpers.createGenerator('jahia:app', [
         '../../app'
       ]);
 
