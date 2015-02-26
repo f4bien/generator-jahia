@@ -18,6 +18,8 @@ var Generator = module.exports = function Generator(args, options) {
 util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.askFor = function askFor(argument) {
+  this.pkg = require('../package.json');
+
   if (this.format) {
     // Skip if already set.
     return;
@@ -56,13 +58,23 @@ Generator.prototype.askFor = function askFor(argument) {
 
     this.format = props.format;
 
+    this.coffee = false;
+    this.testFramework = false;
+    this.includeBootstrap = false;
+    this.includeSass = false;
+    this.includeLibSass = false;
+    this.includeModernizr = true;
+
     cb();
   }.bind(this));
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   this.copy('bowerrc', '.bowerrc');
+  this.copy('jshintrc', '.jshintrc');
   this.template('_bower.json', 'bower.json');
+  this.template('_package.json', 'package.json');
+  this.template('Gruntfile.js', 'Gruntfile.js');
 
   if (this.format === 'less') {
     var lessDir = 'src/main/less/';

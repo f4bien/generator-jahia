@@ -6,9 +6,9 @@
 
 // # Globbing
 // for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
+// 'src/test/javascript/spec/{,*/}*.js'
 // If you want to recursively match all subfolders, use:
-// 'test/spec/**/*.js'
+// 'src/test/javascript/spec/**/*.js'
 
 module.exports = function (grunt) {
 
@@ -20,8 +20,9 @@ module.exports = function (grunt) {
 
   // Configurable paths
   var config = {
-    app: 'app',
-    dist: 'dist'
+    app: 'src/main',
+    test: 'src/test',
+    dist: 'target/classes'
   };
 
   // Define the configuration for all the tasks
@@ -37,33 +38,33 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },<% if (coffee) { %>
     coffee: {
-      files: ['<%%= config.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
+      files: ['<%%= config.app %>/coffee/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['coffee:dist']
     },
     coffeeTest: {
-      files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
+      files: ['<%%= config.test %>/coffee/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['coffee:test', 'test:watch']
     },<% } else { %>
     js: {
-      files: ['<%%= config.app %>/scripts/{,*/}*.js'],
+      files: ['<%%= config.app %>/resources/javascript/{,*/}*.js'],
         tasks: ['jshint'],
         options: {
         livereload: '<%%= connect.options.livereload %>'
       }
     },
     jstest: {
-      files: ['test/spec/{,*/}*.js'],
+      files: ['<%%= config.test %>/spec/{,*/}*.js'],
         tasks: ['test:watch']
     },<% } %>
   gruntfile: {
     files: ['Gruntfile.js']
   },<% if (includeSass) { %>
     sass: {
-      files: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
+      files: ['<%%= config.app %>/sass/{,*/}*.{scss,sass}'],
         tasks: ['sass:server', 'autoprefixer']
     },<% } %>
   styles: {
-    files: ['<%%= config.app %>/styles/{,*/}*.css'],
+    files: ['<%%= config.app %>/resources/css/{,*/}*.css'],
       tasks: ['newer:copy:styles', 'autoprefixer']
   },
   livereload: {
@@ -71,11 +72,11 @@ module.exports = function (grunt) {
       livereload: '<%%= connect.options.livereload %>'
     },
     files: [
-      '<%%= config.app %>/{,*/}*.html',
+      '<%%= config.app %>/resources/**/*.jsp',
       '.tmp/styles/{,*/}*.css',<% if (coffee) { %>
       '.tmp/scripts/{,*/}*.js',<% } %>
-    '<%%= config.app %>/images/{,*/}*'
-  ]
+      '<%%= config.app %>/resources/images/{,*/}*'
+    ]
   }
 },
 
@@ -93,7 +94,7 @@ module.exports = function (grunt) {
       middleware: function(connect) {
         return [
           connect.static('.tmp'),
-          connect().use('/bower_components', connect.static('./bower_components')),
+          connect().use('/bower_components', connect.static('./src/main/bower_components')),
           connect.static(config.app)
         ];
       }
@@ -107,7 +108,7 @@ module.exports = function (grunt) {
         return [
           connect.static('.tmp'),
           connect.static('test'),
-          connect().use('/bower_components', connect.static('./bower_components')),
+          connect().use('/bower_components', connect.static('./src/main/bower_components')),
           connect.static(config.app)
         ];
       }
@@ -144,9 +145,9 @@ jshint: {
   },
   all: [
     'Gruntfile.js',
-    '<%%= config.app %>/scripts/{,*/}*.js',
-    '!<%%= config.app %>/scripts/vendor/*',
-    'test/spec/{,*/}*.js'
+    '<%%= config.app %>/resources/javascript/{,*/}*.js',
+    '!<%%= config.app %>/resources/javascript/vendor/*',
+    '<%%= config.test %>/javascript/spec/{,*/}*.js'
   ]
 },<% if (testFramework === 'mocha') { %>
 
@@ -164,7 +165,7 @@ jshint: {
   jasmine: {
     all: {
       options: {
-        specs: 'test/spec/{,*/}*.js'
+        specs: '<%%= config.test %>/javascript/spec/{,*/}*.js'
       }
     }
   },<% } %><% if (coffee) { %>
@@ -174,7 +175,7 @@ jshint: {
     dist: {
       files: [{
         expand: true,
-        cwd: '<%%= config.app %>/scripts',
+        cwd: '<%%= config.app %>/coffee',
         src: '{,*/}*.{coffee,litcoffee,coffee.md}',
         dest: '.tmp/scripts',
         ext: '.js'
@@ -183,7 +184,7 @@ jshint: {
     test: {
       files: [{
         expand: true,
-        cwd: 'test/spec',
+        cwd: '<%%= config.test %>/coffee/spec',
         src: '{,*/}*.{coffee,litcoffee,coffee.md}',
         dest: '.tmp/spec',
         ext: '.js'
@@ -202,7 +203,7 @@ jshint: {
     dist: {
       files: [{
         expand: true,
-        cwd: '<%%= config.app %>/styles',
+        cwd: '<%%= config.app %>/sass',
         src: ['*.{scss,sass}'],
         dest: '.tmp/styles',
         ext: '.css'
@@ -211,7 +212,7 @@ jshint: {
     server: {
       files: [{
         expand: true,
-        cwd: '<%%= config.app %>/styles',
+        cwd: '<%%= config.app %>/sass',
         src: ['*.{scss,sass}'],
         dest: '.tmp/styles',
         ext: '.css'
@@ -242,12 +243,12 @@ autoprefixer: {
 wiredep: {
   app: {
     ignorePath: /^<%= config.app %>\/|\.\.\//,
-      src: ['<%%= config.app %>/index.html']<% if (includeBootstrap) { %>,<% if (includeSass) { %>
-      exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']<% } else { %>
-      exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']<% } } %>
+      src: ['<%%= config.app %>/resources/jnt_template/html/template.<%= slugname %>.jsp']<% if (includeBootstrap) { %>,<% if (includeSass) { %>
+      exclude: ['<%%= config.app %>/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js']<% } else { %>
+      exclude: ['<%%= config.app %>/bower_components/bootstrap/dist/js/bootstrap.js']<% } } %>
   }<% if (includeSass) { %>,
     sass: {
-      src: ['<%%= config.app %>/styles/{,*/}*.{scss,sass}'],
+      src: ['<%%= config.app %>/sass/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
     }<% } %>
 },
@@ -257,11 +258,10 @@ rev: {
   dist: {
     files: {
       src: [
-        '<%%= config.dist %>/scripts/{,*/}*.js',
-        '<%%= config.dist %>/styles/{,*/}*.css',
-        '<%%= config.dist %>/images/{,*/}*.*',
-        '<%%= config.dist %>/styles/fonts/{,*/}*.*',
-        '<%%= config.dist %>/*.{ico,png}'
+        '<%%= config.dist %>/javascript/{,*/}*.js',
+        '<%%= config.dist %>/css/{,*/}*.css',
+        '<%%= config.dist %>/css/fonts/{,*/}*.*',
+        '<%%= config.dist %>/images/{,*/}*.*'
       ]
     }
   }
@@ -274,7 +274,7 @@ useminPrepare: {
   options: {
     dest: '<%%= config.dist %>'
   },
-  html: '<%%= config.app %>/index.html'
+  html: '<%%= config.app %>/jnt_template/html/template.<%= slugname %>.jsp'
 },
 
 // Performs rewrites based on rev and the useminPrepare configuration
@@ -283,11 +283,11 @@ usemin: {
     assetsDirs: [
       '<%%= config.dist %>',
       '<%%= config.dist %>/images',
-      '<%%= config.dist %>/styles'
+      '<%%= config.dist %>/css'
     ]
   },
-  html: ['<%%= config.dist %>/{,*/}*.html'],
-    css: ['<%%= config.dist %>/styles/{,*/}*.css']
+  html: ['<%%= config.dist %>/**/*.jsp'],
+    css: ['<%%= config.dist %>/css/{,*/}*.css']
 },
 
 // The following *-min tasks produce minified files in the dist folder
@@ -295,7 +295,7 @@ imagemin: {
   dist: {
     files: [{
       expand: true,
-      cwd: '<%%= config.app %>/images',
+      cwd: '<%%= config.app %>/resources/images',
       src: '{,*/}*.{gif,jpeg,jpg,png}',
       dest: '<%%= config.dist %>/images'
     }]
@@ -306,7 +306,7 @@ svgmin: {
   dist: {
     files: [{
       expand: true,
-      cwd: '<%%= config.app %>/images',
+      cwd: '<%%= config.app %>/resources/images',
       src: '{,*/}*.svg',
       dest: '<%%= config.dist %>/images'
     }]
@@ -330,7 +330,7 @@ htmlmin: {
     files: [{
       expand: true,
       cwd: '<%%= config.dist %>',
-      src: '{,*/}*.html',
+      src: '**/*.jsp',
       dest: '<%%= config.dist %>'
     }]
   }
@@ -342,9 +342,9 @@ htmlmin: {
 // cssmin: {
 //   dist: {
 //     files: {
-//       '<%%= config.dist %>/styles/main.css': [
+//       '<%%= config.dist %>/css/main.css': [
 //         '.tmp/styles/{,*/}*.css',
-//         '<%%= config.app %>/styles/{,*/}*.css'
+//         '<%%= config.app %>/resources/css/{,*/}*.css'
 //       ]
 //     }
 //   }
@@ -352,8 +352,8 @@ htmlmin: {
 // uglify: {
 //   dist: {
 //     files: {
-//       '<%%= config.dist %>/scripts/scripts.js': [
-//         '<%%= config.dist %>/scripts/scripts.js'
+//       '<%%= config.dist %>/javascript/scripts.js': [
+//         '<%%= config.dist %>/javascript/scripts.js'
 //       ]
 //     }
 //   }
@@ -361,143 +361,101 @@ htmlmin: {
 // concat: {
 //   dist: {}
 // },
-
-// Copies remaining files to places other tasks can use
-copy: {
-  dist: {
-    files: [{
-      expand: true,
-      dot: true,
-      cwd: '<%%= config.app %>',
-      dest: '<%%= config.dist %>',
-      src: [
-        '*.{ico,png,txt}',
-        'images/{,*/}*.webp',
-        '{,*/}*.html',
-        'styles/fonts/{,*/}*.*'
-      ]
-    }<% if (includeBootstrap) { %>, {
-      expand: true,
-        dot: true,
-        cwd: '<% if (includeSass) {
-      %>.<%
-    } else {
-    %>bower_components/bootstrap/dist<%
-    } %>',
-      src: '<% if (includeSass) {
-      %>bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*<%
-       } else {
-       %>fonts/*<%
-       } %>',
-       dest: '<%%= config.dist %>'
-       }<% } %>]
-       }<% if (!includeSass) { %>,
-       styles: {
-       expand: true,
-       dot: true,
-       cwd: '<%%= config.app %>/styles',
-       dest: '.tmp/styles/',
-       src: '{,*/}*.css'
-  }<% } %>
-},<% if (includeModernizr) { %>
+<% if (includeModernizr) { %>
 
   // Generates a custom Modernizr build that includes only the tests you
   // reference in your app
   modernizr: {
     dist: {
-      devFile: 'bower_components/modernizr/modernizr.js',
-        outputFile: '<%%= config.dist %>/scripts/vendor/modernizr.js',
+      devFile: '<%%= config.app %>/bower_components/modernizr/modernizr.js',
+        outputFile: '<%%= config.dist %>/javascript/vendor/modernizr.js',
         files: {
         src: [
-          '<%%= config.dist %>/scripts/{,*/}*.js',
-          '<%%= config.dist %>/styles/{,*/}*.css',
-          '!<%%= config.dist %>/scripts/vendor/*'
+          '<%%= config.dist %>/javascript/{,*/}*.js',
+          '<%%= config.dist %>/css/{,*/}*.css',
+          '!<%%= config.dist %>/javascript/vendor/*'
         ]
       },
       uglify: true
+      }
+    },<% } %>
+
+    // Run some tasks in parallel to speed up build process
+    concurrent: {
+      server: [<% if (coffee) {  %>
+        'coffee:dist'<% } %><% if (coffee && includeSass) {  %>,<% } %><% if (includeSass) { %>
+        'sass:server'<% } %>
+      ],
+      test: [<% if (coffee) { %>
+        'coffee',<% } %>
+      ],
+      dist: [<% if (coffee) { %>
+        'coffee',<% } %><% if (includeSass) { %>
+        'sass',<% } %>
+        'imagemin',
+        'svgmin'
+      ]
     }
-  },<% } %>
-
-// Run some tasks in parallel to speed up build process
-concurrent: {
-  server: [<% if (coffee) {  %>
-    'coffee:dist'<% } %><% if (coffee && includeSass) {  %>,<% } %><% if (includeSass) { %>
-    'sass:server'<% } else { %>
-    'copy:styles'<% } %>
-],
-  test: [<% if (coffee) { %>
-    'coffee',<% } %><% if (coffee && !includeSass) {  %>,<% } %><% if (!includeSass) { %>
-    'copy:styles'<% } %>
-],
-  dist: [<% if (coffee) { %>
-    'coffee',<% } %><% if (includeSass) { %>
-    'sass',<% } else { %>
-    'copy:styles',<% } %>
-  'imagemin',
-    'svgmin'
-]
-}
-});
+  });
 
 
-grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
-  if (grunt.option('allow-remote')) {
-    grunt.config.set('connect.options.hostname', '0.0.0.0');
-  }
-  if (target === 'dist') {
-    return grunt.task.run(['build', 'connect:dist:keepalive']);
-  }
+  grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
+    if (grunt.option('allow-remote')) {
+      grunt.config.set('connect.options.hostname', '0.0.0.0');
+    }
+    if (target === 'dist') {
+      return grunt.task.run(['build', 'connect:dist:keepalive']);
+    }
 
-  grunt.task.run([
-    'clean:server',
-    'wiredep',
-    'concurrent:server',
-    'autoprefixer',
-    'connect:livereload',
-    'watch'
-  ]);
-});
-
-grunt.registerTask('server', function (target) {
-  grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-  grunt.task.run([target ? ('serve:' + target) : 'serve']);
-});
-
-grunt.registerTask('test', function (target) {
-  if (target !== 'watch') {
     grunt.task.run([
       'clean:server',
-      'concurrent:test',
-      'autoprefixer'
+      'wiredep',
+      'concurrent:server',
+      'autoprefixer',
+      'connect:livereload',
+      'watch'
     ]);
-  }
+  });
 
-  grunt.task.run([
-    'connect:test',<% if (testFramework === 'mocha') { %>
-    'mocha'<% } else if (testFramework === 'jasmine') { %>
-    'jasmine'<% } %>
+  grunt.registerTask('server', function (target) {
+    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+    grunt.task.run([target ? ('serve:' + target) : 'serve']);
+  });
+
+  grunt.registerTask('test', function (target) {
+    if (target !== 'watch') {
+      grunt.task.run([
+        'clean:server',
+        'concurrent:test',
+        'autoprefixer'
+      ]);
+    }
+
+    grunt.task.run([
+      'connect:test',<% if (testFramework === 'mocha') { %>
+      'mocha'<% } else if (testFramework === 'jasmine') { %>
+      'jasmine'<% } %>
+    ]);
+  });
+
+  grunt.registerTask('build', [
+    'clean:dist',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist',
+    'autoprefixer',
+    'concat',
+    'cssmin',
+    'uglify',<% if (includeModernizr) { %>
+    'modernizr',<% } %>
+    'rev',
+    'usemin',
+    'htmlmin'
   ]);
-});
 
-grunt.registerTask('build', [
-  'clean:dist',
-  'wiredep',
-  'useminPrepare',
-  'concurrent:dist',
-  'autoprefixer',
-  'concat',
-  'cssmin',
-  'uglify',
-  'copy:dist',<% if (includeModernizr) { %>
-  'modernizr',<% } %>
-'rev',
-  'usemin',
-  'htmlmin'
-]);
-
-grunt.registerTask('default', [
-  'newer:jshint',
-  'test',
-  'build'
-]);
+  grunt.registerTask('default', [
+    'newer:jshint',
+    'test',
+    'build'
+  ]);
 };
