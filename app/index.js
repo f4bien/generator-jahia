@@ -93,6 +93,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var resourceDir = 'src/main/resources/';
   this.mkdir(resourceDir);
   this.template(resourceDir + 'META-INF/_definitions.cnd', resourceDir + 'META-INF/definitions.cnd');
+  this.copy(resourceDir + 'javascript/app.js', resourceDir + 'javascript/app.js');
   this.copy(resourceDir + 'jnt_template/html/template.jsp', resourceDir + 'jnt_template/html/template.' + this.slugname + '.jsp');
 
   this.template('_pom.xml', 'pom.xml', null, { 'interpolate': /<%=([\s\S]+?)%>/g });
