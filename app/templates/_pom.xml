@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- ========== -->
+  <!-- = Parent = -->
+  <!-- ========== -->
+  <parent>
+    <artifactId>jahia-modules</artifactId>
+    <groupId>org.jahia.modules</groupId>
+    <version>7.0.0.3</version>
+  </parent>
+
+  <!-- =========== -->
+  <!-- = General = -->
+  <!-- =========== -->
+  <groupId><%= packageName %></groupId>
+  <artifactId><%= slugname %></artifactId>
+  <name><%= name %></name>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+
+
+  <!-- ======= -->
+  <!-- = SCM = -->
+  <!-- ======= -->
+  <scm>
+    <connection>scm:dummy:uri</connection>
+    <developerConnection>scm:dummy:uri</developerConnection>
+  </scm>
+
+  <!-- ================ -->
+  <!-- = Repositories = -->
+  <!-- ================ -->
+  <repositories>
+    <repository>
+      <id>jahia-public</id>
+      <name>Jahia Public Repository</name>
+      <url>https://devtools.jahia.com/nexus/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <!-- ========= -->
+  <!-- = Build = -->
+  <!-- ========= -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Jahia-Module-Type>templatesSet</Jahia-Module-Type>
+            <Jahia-Depends>default</Jahia-Depends>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- ============ -->
+  <!-- = Profiles = -->
+  <!-- ============ -->
+  <profiles>
+    <profile>
+      <id>prod</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.trecloux</groupId>
+            <artifactId>yeoman-maven-plugin</artifactId>
+            <version>0.2</version>
+            <executions>
+              <execution>
+                <id>run-grunt</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <configuration>
+                  <gruntBuildArgs>--force</gruntBuildArgs>
+                </configuration>
+              </execution>
+            </executions>
+            <configuration>
+              <yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
