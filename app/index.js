@@ -26,6 +26,7 @@ Generator.prototype.askFor = function askFor(argument) {
   var cb = this.async();
   var formats = ['css', 'sass', 'less', 'stylus'];
   var prompts = [{
+    type: 'input',
     name: 'name',
     message: 'What is the Digital Factory template set name?',
     default: path.basename(process.cwd())
@@ -47,7 +48,8 @@ Generator.prototype.askFor = function askFor(argument) {
 
   this.prompt(prompts, function (props) {
     this.packageName = props.packageName;
-    this.slugname = this._.slugify(props.name);
+    this.name = props.name;
+    this.slugname = this._.slugify(this.name);
     this.camelizedName = this.slugname.replace(/-+([a-zA-Z0-9])/g, function (g) {
       return g[1].toUpperCase();
     });
