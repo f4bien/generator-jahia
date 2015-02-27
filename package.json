@@ -1,7 +1,7 @@
 {
   "name": "generator-jahia",
   "version": "0.1.1",
-  "description": "Yeoman generator for Jahia",
+  "description": "Yeoman generator for Jahia 7",
   "keywords": [
     "yeoman-generator",
     "jahia",

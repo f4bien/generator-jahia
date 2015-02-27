@@ -1,6 +1,6 @@
 # generator-jahia [![Build Status](https://travis-ci.org/f4bien/generator-jahia.svg?branch=master)](https://travis-ci.org/f4bien/generator-jahia)
 
-Yeoman generator for [Jahia](https://www.jahia.com/products/digital-factory)
+Yeoman generator for [Jahia 7](https://www.jahia.com/products/digital-factory)
 
 ## Install
 
