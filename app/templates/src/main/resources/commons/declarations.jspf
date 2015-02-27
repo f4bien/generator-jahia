@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@ taglib uri="http://www.jahia.org/tags/jcr" prefix="jcr" %>
 <%@ taglib uri="http://www.jahia.org/tags/templateLib" prefix="template" %>
 <%@ taglib uri="http://www.jahia.org/tags/uiComponentsLib" prefix="ui" %>
 <%@ taglib uri="http://www.jahia.org/tags/utilityLib" prefix="utility" %>
@@ -12,7 +13,6 @@
 <%@ taglib uri="http://www.jahia.org/tags/functions" prefix="functions" %>
 <%@ taglib uri="http://www.jahia.org/tags/search" prefix="s" %>
 <%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg" %>
-<%@ taglib uri="http://www.jahia.org/tags/jcr" prefix="jcr" %>
 
 <%--@elvariable id="currentNode" type="org.jahia.services.content.JCRNodeWrapper"--%>
 <%--@elvariable id="out" type="java.io.PrintWriter"--%>
