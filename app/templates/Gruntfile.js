@@ -196,8 +196,8 @@ jshint: {
       options: {
       },
       files: {
-        '<%%= config.dist %>/css/app.css': '<%%= config.src %>/less/app.less',
-        '<%%= config.dist %>/css/edit.css': '<%%= config.src %>/less/edit.less'
+        '<%%= config.dist %>/css/app.css': '<%%= config.app %>/less/app.less',
+        '<%%= config.dist %>/css/edit.css': '<%%= config.app %>/less/edit.less'
       }
     }
   },<% } %><% if (includeSass) { %>
