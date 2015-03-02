@@ -401,7 +401,8 @@ htmlmin: {
       ],
       dist: [<% if (coffee) { %>
         'coffee',<% } %><% if (includeSass) { %>
-        'sass',<% } %>
+        'sass',<% } %><% else if (includeLess) { %>
+        'less',<% } %>
         'imagemin',
         'svgmin'
       ]
