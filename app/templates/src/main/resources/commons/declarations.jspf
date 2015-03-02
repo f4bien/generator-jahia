@@ -12,7 +12,6 @@
 <%@ taglib uri="http://www.jahia.org/tags/queryLib" prefix="query" %>
 <%@ taglib uri="http://www.jahia.org/tags/functions" prefix="functions" %>
 <%@ taglib uri="http://www.jahia.org/tags/search" prefix="s" %>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg" %>
 
 <%--@elvariable id="currentNode" type="org.jahia.services.content.JCRNodeWrapper"--%>
 <%--@elvariable id="out" type="java.io.PrintWriter"--%>
