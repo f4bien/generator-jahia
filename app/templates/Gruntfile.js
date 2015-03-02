@@ -459,8 +459,8 @@ htmlmin: {
     'cssmin',
     'uglify',<% if (includeModernizr) { %>
     'modernizr',<% } %>
-    'rev',
-    'usemin',
+    //'rev',
+    //'usemin',
     'htmlmin'
   ]);
 
