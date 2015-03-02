@@ -61,8 +61,8 @@ Generator.prototype.askFor = function askFor(argument) {
     this.coffee = false;
     this.testFramework = false;
     this.includeBootstrap = false;
-    this.includeSass = false;
-    this.includeLibSass = false;
+    this.includeSass = this.includeLibSass = this.format === 'sass';
+    this.includeLess = this.format === 'less';
     this.includeModernizr = true;
 
     cb();
@@ -78,7 +78,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 
   this.template('src/main/import/_repository.xml', 'src/main/import/repository.xml');
 
-  if (this.format === 'less') {
+  if (this.includeLess) {
     var lessDir = 'src/main/less/';
     this.mkdir(lessDir);
     this.copy(lessDir + 'layout/header.less', lessDir + 'layout/header.less');
