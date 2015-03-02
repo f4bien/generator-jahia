@@ -75,6 +75,9 @@
   <profiles>
     <profile>
       <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <build>
         <plugins>
           <plugin>
@@ -84,9 +87,6 @@
             <executions>
               <execution>
                 <id>run-grunt</id>
-                <activation>
-                  <activeByDefault>true</activeByDefault>
-                </activation>
                 <phase>generate-resources</phase>
                 <goals>
                   <goal>build</goal>
