@@ -63,6 +63,12 @@
           <instructions>
             <Jahia-Module-Type>templatesSet</Jahia-Module-Type>
             <Jahia-Depends>default</Jahia-Depends>
+            <Include-Resource>
+              {maven-resources},
+              {maven-dependencies},
+              javascript=target/classes/javascript,
+              css=target/classes/css
+            </Include-Resource>
           </instructions>
         </configuration>
       </plugin>
