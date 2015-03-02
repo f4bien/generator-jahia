@@ -76,6 +76,8 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   this.template('_package.json', 'package.json');
   this.template('Gruntfile.js', 'Gruntfile.js');
 
+  this.template('src/main/import/_repository.xml', 'src/main/import/repository.xml');
+
   if (this.format === 'less') {
     var lessDir = 'src/main/less/';
     this.mkdir(lessDir);
