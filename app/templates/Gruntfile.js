@@ -190,6 +190,16 @@ jshint: {
         ext: '.js'
       }]
     }
+  },<% } %><% if (includeLess) { %>
+  less: {
+    all: {
+      options: {
+      },
+      files: {
+        '<%%= config.dist %>/css/app.css': '<%%= config.src %>/less/app.less',
+        '<%%= config.dist %>/css/edit.css': '<%%= config.src %>/less/edit.less'
+      }
+    }
   },<% } %><% if (includeSass) { %>
 
   // Compiles Sass to CSS and generates necessary files if requested
