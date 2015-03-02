@@ -420,9 +420,9 @@ htmlmin: {
 
     grunt.task.run([
       'clean:server',
-      'wiredep',
+      //'wiredep',
       'concurrent:server',
-      'autoprefixer',
+      //'autoprefixer',
       'connect:livereload',
       'watch'
     ]);
@@ -438,7 +438,7 @@ htmlmin: {
       grunt.task.run([
         'clean:server',
         'concurrent:test',
-        'autoprefixer'
+        //'autoprefixer'
       ]);
     }
 
@@ -451,13 +451,14 @@ htmlmin: {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
-    'useminPrepare',
+    //'wiredep',
+    //'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
-    'concat',
-    'cssmin',
-    'uglify',<% if (includeModernizr) { %>
+    //'autoprefixer',
+    //'concat',
+    //'cssmin',
+    //'uglify',
+    <% if (includeModernizr) { %>
     'modernizr',<% } %>
     //'rev',
     //'usemin',
