@@ -61,7 +61,7 @@ Generator.prototype.askFor = function askFor(argument) {
     this.coffee = false;
     this.testFramework = false;
     this.includeBootstrap = false;
-    this.includeSass = this.includeLibSass = this.format === 'sass';
+    this.includeSass = this.includeLibSass = this.includeRubySass = this.format === 'sass';
     this.includeLess = this.format === 'less';
     this.includeModernizr = true;
 
