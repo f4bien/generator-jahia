@@ -62,7 +62,14 @@ module.exports = function (grunt) {
     sass: {
       files: ['<%%= config.app %>/sass/{,*/}*.{scss,sass}'],
         tasks: ['sass:server', 'autoprefixer']
-    },<% } %>
+    },<% } else if (includeLess) { %>
+  less: {
+    files: ['<%%= config.app %>/less/**/*.less'],
+      tasks: ['less:server'],
+      options: {
+      livereload: '<%%= connect.options.livereload %>'
+    }
+  }, <% }  %>
   styles: {
     files: ['<%%= config.app %>/resources/css/{,*/}*.css'],
       tasks: ['newer:copy:styles', 'autoprefixer']
@@ -192,7 +199,15 @@ jshint: {
     }
   },<% } %><% if (includeLess) { %>
   less: {
-    all: {
+    server: {
+      options: {
+      },
+      files: {
+        '<%%= config.app %>/resources/css/app.css': '<%%= config.app %>/less/app.less',
+        '<%%= config.app %>/resources/css/edit.css': '<%%= config.app %>/less/edit.less'
+      }
+    },
+    dist: {
       options: {
       },
       files: {
@@ -402,7 +417,7 @@ htmlmin: {
       dist: [<% if (coffee) { %>
         'coffee',<% } %><% if (includeSass) { %>
         'sass',<% } else if (includeLess) { %>
-        'less',<% } %>
+        'less:dist',<% } %>
         'imagemin',
         'svgmin'
       ]

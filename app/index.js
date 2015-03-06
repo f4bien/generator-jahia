@@ -79,6 +79,8 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   this.template('src/main/import/_repository.xml', 'src/main/import/repository.xml');
 
   if (this.includeLess) {
+    this.copy('gitignore', '.gitignore');
+
     var lessDir = 'src/main/less/';
     this.mkdir(lessDir);
     this.copy(lessDir + 'layout/header.less', lessDir + 'layout/header.less');
