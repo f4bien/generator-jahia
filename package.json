@@ -28,7 +28,7 @@
     "yeoman-generator": "*"
   },
   "devDependencies": {
-    "grunt": "^0.45.0",
+    "grunt": "^0.4.5",
     "grunt-release": "*",
     "mocha": "*"
   },
