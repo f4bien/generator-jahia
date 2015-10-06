@@ -25,11 +25,11 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "^0.17.7"
+    "yeoman-generator": "latest"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-release": "^0.11.0",
+    "grunt": "latest",
+    "grunt-release": "latest",
     "mocha": "*"
   },
   "peerDependencies": {
