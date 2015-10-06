@@ -1,5 +1,3 @@
-'use strict';
-
 // Avoid `console` errors in browsers that lack a console.
 +function() {
   var method;
@@ -24,10 +22,11 @@
 }();
 
 // Loose augmentation pattern
-var app = +function(app, undefined) {
-
+var app = (function(app, undefined) {
+  'use strict';
+  
   console.log('Javascript is enabled');
   // logic goes here...
 
   return app;
-}(app || {});
+}(app || {}));
