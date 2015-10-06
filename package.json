@@ -30,7 +30,7 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-release": "*",
-    "lodash": "*",
+    "underscore.string": "*",
     "mocha": "*"
   },
   "peerDependencies": {
