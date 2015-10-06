@@ -30,6 +30,7 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-release": "*",
+    "mkdirp" : "*",
     "underscore.string": "*",
     "mocha": "*"
   },
