@@ -1,7 +1,7 @@
 'use strict';
 var path = require('path');
 var util = require('util');
-var _ = require('lodash');
+var slugify = require("underscore.string/slugify");
 var yeoman = require('yeoman-generator');
 
 
@@ -52,7 +52,7 @@ Generator.prototype.askFor = function askFor(argument) {
   this.prompt(prompts, function (props) {
     this.packageName = props.packageName;
     this.name = props.name;
-    this.slugname = _.slugify(this.name);
+    this.slugname = slugify(this.name);
     this.camelizedName = this.slugname.replace(/-+([a-zA-Z0-9])/g, function (g) {
       return g[1].toUpperCase();
     });
