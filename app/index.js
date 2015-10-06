@@ -1,8 +1,9 @@
 'use strict';
-var path = require('path');
-var util = require('util');
-var slugify = require('underscore.string/slugify');
-var yeoman = require('yeoman-generator');
+var path = require('path'),
+  util = require('util'),
+  slugify = require('underscore.string/slugify'),
+  mkdirp = require('mkdirp'),
+  yeoman = require('yeoman-generator');
 
 
 var Generator = module.exports = function Generator(args, options) {
@@ -83,7 +84,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy('gitignore', '.gitignore');
 
     var lessDir = 'src/main/less/';
-    this.mkdir(lessDir);
+    mkdirp(lessDir);
     this.copy(lessDir + 'layout/header.less', lessDir + 'layout/header.less');
     this.copy(lessDir + 'layout/content.less', lessDir + 'layout/content.less');
     this.copy(lessDir + 'layout/footer.less', lessDir + 'layout/footer.less');
@@ -96,7 +97,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   }
 
   var resourceDir = 'src/main/resources/';
-  this.mkdir(resourceDir);
+  mkdirp(resourceDir);
   this.template(resourceDir + 'META-INF/_definitions.cnd', resourceDir + 'META-INF/definitions.cnd');
   this.copy(resourceDir + 'javascript/app.js', resourceDir + 'javascript/app.js');
   this.template(resourceDir + 'commons/declarations.jspf', resourceDir + 'commons/declarations.jspf', null, { 'interpolate': /<%=([\s\S]+?)%>/g });
