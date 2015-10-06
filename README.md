@@ -1,8 +1,10 @@
 # generator-jahia 
 
-[![Build Status](https://travis-ci.org/f4bien/generator-jahia.svg?branch=master)](https://travis-ci.org/f4bien/generator-jahia)
-[![Dependencies status](https://david-dm.org/f4bien/generator-jahia.svg?branch=master)](https://david-dm.org/f4bien/generator-jahia)
+[![Build Status](https://travis-ci.org/f4bien/generator-jahia.svg?branch=master)](https://travis-ci.org/f4bien/generator-jahia)  
 
+[![Dependency Status](https://david-dm.org/f4bien/generator-jahia.svg)](https://david-dm.org/f4bien/generator-jahia)
+[![devDependency Status](https://david-dm.org/f4bien/generator-jahia/dev-status.svg)](https://david-dm.org/f4bien/generator-jahia#info=devDependencies)
+[![peerDependency Status](https://david-dm.org/f4bien/generator-jahia/peer-status.svg)](https://david-dm.org/f4bien/generator-jahia#info=peerDependencies)
 
 Yeoman generator for [Jahia 7](https://www.jahia.com/products/digital-factory)
 
