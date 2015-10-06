@@ -1,4 +1,4 @@
-<%@ include file="../../commons/declarations.jspf" %>
+<%%@ include file="../../commons/declarations.jspf" %>
 <!doctype html>
 <html class="no-js" lang="${renderContext.mainResourceLocale.language}">
 <head>
