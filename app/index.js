@@ -86,7 +86,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy(lessDir + 'layout/header.less', lessDir + 'layout/header.less');
     this.copy(lessDir + 'layout/content.less', lessDir + 'layout/content.less');
     this.copy(lessDir + 'layout/footer.less', lessDir + 'layout/footer.less');
-    this.copy(lessDir + 'templates/page.less', lessDir + 'templates/page.less');
+    this.copy(lessDir + 'templates/simple.less', lessDir + 'templates/simple.less');
     this.copy(lessDir + 'templates/home.less', lessDir + 'templates/home.less');
     this.copy(lessDir + 'components/navMenu.less', lessDir + 'components/navMenu.less');
     this.copy(lessDir + 'components/navMenu.aside.less', lessDir + 'components/navMenu.aside.less');
