@@ -6,7 +6,7 @@
 [![devDependency Status](https://david-dm.org/f4bien/generator-jahia/dev-status.svg)](https://david-dm.org/f4bien/generator-jahia#info=devDependencies)
 [![peerDependency Status](https://david-dm.org/f4bien/generator-jahia/peer-status.svg)](https://david-dm.org/f4bien/generator-jahia#info=peerDependencies)
 
-Yeoman generator for [Jahia 7](https://www.jahia.com/products/digital-factory)
+Yeoman generator for [Digital Factory 7.1 from Jahia](https://www.jahia.com/products/digital-factory)
 
 ## Install
 
@@ -24,18 +24,18 @@ $ yo jahia
 
 ## Deploy
 
-Deploy on Jahia 7
+Deploy on Digital Factory 7.1
 
 ```sh
 $ mvn clean package jahia:deploy -Pdev
 ```
 
-## LiveReload
+## Browsersync
 
-Enable [LiveReload](http://livereload.com/) and its browser plugin for client side
+[Browsersync](http://www.browsersync.io/) feature is embedded.
 
 ```sh
-$ grunt serve
+$ gulp watch
 ```
 
 ## License
