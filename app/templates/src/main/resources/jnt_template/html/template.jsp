@@ -24,6 +24,8 @@
 <div class="bodywrapper ${templateName}">
   <template:area path="pagecontent"/>
 </div>
+
+<script src="${url.currentModule}/javascript/app.js${version}"></script>
 </body>
 </html>
 
