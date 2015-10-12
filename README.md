@@ -35,7 +35,7 @@ $ mvn clean package jahia:deploy -Pdev
 [Browsersync](http://www.browsersync.io/) feature is embedded.
 
 ```sh
-$ gulp watch
+$ gulp serve
 ```
 
 ## License
